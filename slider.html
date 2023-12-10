@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js Slider</title>
+    <style>
+        #slider {
+  width: 60%;
+  height: 400px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  margin-top: 7vh;
+}
+
+.slides {
+  position: absolute;
+  transition: 1s;
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.btns > button > img {
+  /* width: 50px; */
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(80, 133, 248);
+}
+
+.btns {
+  margin-top: 3vh;
+  /* width: 200px; */
+  border: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+.btns > button {
+  /* box-shadow: #24282F; */
+  border: none;
+}
+#startbtn{
+    background-color: green;
+    width: 200px;
+    border-radius: 30px;
+    font-size: 19px;
+    color: white;
+}
+#stopbtn{
+    display: none;
+    width: 200px;
+    border-radius: 40px;
+    font-size: 19px;
+    color: white;
+}
+    </style>
+</head>
+
+<body>
+
+    <div id="slider">
+
+        <img src="https://picsum.photos/id/10/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/11/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/12/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/13/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/14/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/15/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/16/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/17/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/18/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/19/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/20/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/22/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/23/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/24/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/25/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/26/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/27/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/28/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/29/367/267" class="slides" alt="">
+        <img src="https://picsum.photos/id/30/367/267" class="slides" alt="">
+        
+
+
+    </div>
+    <div class="btns">
+        <button onclick="prev()"><img src="https://cdn.iconscout.com/icon/free/png-512/free-arrow-circle-o-left-button-navigation-44396.png?f=webp&w=256" alt=""></button>
+
+        <button  id="startbtn" >
+            <p>Start</p>
+        </button>
+        <button  id="stopbtn" >
+            <p>Stop</p>
+        </button>
+
+        <button onclick="next()"><img src="https://cdn.iconscout.com/icon/free/png-512/free-arrow-circle-o-right-button-navigation-44445.png?f=webp&w=256" alt=""></button>
+    </div>
+
+</body>
+
+
+</html>
+
+<script>
+
+    
+    const slides = document.querySelectorAll(".slides")
+    // console.log(slides)
+    var count = 0;
+
+    slides.forEach((slide, ind) => {
+        slide.style.left = `${ind * 100}%`
+    })
+
+    const slideimg = () => {
+        slides.forEach((slide) => {
+            slide.style.transform = `translateX(-${count * 100}%)`
+        })
+    }
+
+    let flag = false;
+
+    const next = () => {
+        
+        count++
+        if (count >= slides.length) {
+            count = 0;
+        }
+        slideimg()
+        
+    }
+    const prev = () => {
+        
+        count--
+        if (count < 0) {
+            count = slides.length - 1
+        }
+        slideimg()
+        if(flag){
+            clearInterval(go)
+        }
+        flag = flag
+        
+        // clearInterval(go)
+    }
+
+
+    
+    let go;
+    let startbtn = document.getElementById("startbtn")
+    let stopbtn = document.getElementById("stopbtn")
+
+
+    startbtn.addEventListener("click",() => {
+        stopbtn.style.display = "block"
+        startbtn.style.display = "none"
+        stopbtn.style.backgroundColor = "red"
+        // if(flag){
+        go = setInterval(next, 2000);
+        // }
+        flag = true
+
+    })
+
+
+    stopbtn.addEventListener("click",() => {
+        startbtn.style.display = "block"
+        stopbtn.style.display = "none"
+        stopbtn.style.backgroundColor = "green"
+        clearTimeout(go)
+    })
+
+</script>
