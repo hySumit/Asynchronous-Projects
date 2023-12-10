@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Stop Watch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #display {
+            font-size: 2em;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            background-color: rgba(139, 139, 139, 0.795);
+            width: 25%;
+            height: 70px;
+            margin: auto;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            /* margin-top: 50px; */
+            font-size: 1em;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .main {
+            border: 2px solid yellow;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            height: 400px;
+            background-color: yellow;
+            color: black;
+            border-radius: 20px;
+        }
+
+        h1 {
+            margin-top: 5vh;
+        }
+
+        hr {
+            width: 60%;
+            margin: auto;
+            margin-top: 3vh;
+            margin-bottom: 5vh;
+            border: 2px dashed black;
+            /* border: ; */
+
+        }
+
+        button {
+            border: none;
+            background-color: black;
+            color: yellow;
+            border-radius: 70px;
+            width: 100px;
+            height: 100px;
+
+        }
+
+        button:hover {
+            background-color: rgb(182, 182, 0);
+            color: black;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            transition: all 0.3s ease-out;
+
+        }
+        @media all  and (max-width: 750px){
+            .main{
+                height: 590px;
+            }
+            #display{
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1 style="text-align: center;">JS Stop Watch</h1>
+        <hr>
+        <div id="display">00:00:00</div>
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    const display = document.getElementById("display");
+    let time;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    const start = () => {
+        if (!time) {
+            time = setInterval(update, 1000);
+        }
+    };
+
+    const pause = () => {
+        clearInterval(time);
+        time = false
+    };
+
+    const reset = () => {
+        clearInterval(time);
+        hours = 0;
+        minutes = 0;
+        seconds = 0;
+        updateDisplay();
+        time = false
+    };
+
+    const update = () => {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes === 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+        updateDisplay();
+    };
+
+    const updateDisplay = () => {
+        let Hours1;
+        let Minutes1;
+        let Seconds1;
+
+        if (hours < 10) {
+            Hours1 = '0' + hours;
+        } else {
+            Hours1 = hours;
+        }
+
+        if (minutes < 10) {
+            Minutes1 = '0' + minutes;
+        } else {
+            Minutes1 = minutes;
+        }
+
+        if (seconds < 10) {
+            Seconds1 = '0' + seconds;
+        } else {
+            Seconds1 = seconds;
+        }
+
+        display.textContent = `${Hours1}:${Minutes1}:${Seconds1}`;
+    };
+
+</script>
+
+// const display = document.getElementById("display");
+// let time;
+// let hours = 0;
+// let minutes = 0;
+// let seconds = 0;
+
+// let inputHourse = document.getElementById("inhours")
+// let inputMinutes = document.getElementById("inminutes")
+// let inputSeconds = document.getElementById("inseconds")
+
+// const start = () => {
+//     if (!time) {
+//         hours = parseInt(inputHourse.value) || 0
+//         minutes = parseInt(inputMinutes.value) || 0
+//         seconds = parseInt(inputSeconds.value) || 0
+//         time = setInterval(update, 1000);
+        
+//     }
+// };
+
+// const pause = () => {
+//     clearInterval(time);
+//     time = false
+// };
+
+// const reset = () => {
+//     clearInterval(time);
+//     hours = 0;
+//     minutes = 0;
+//     seconds = 0;
+//     updateDisplay();
+//     time = false
+// };
+
+// const update = () => {
+//         if (hours === 0 && minutes === 0 && seconds === 0) {
+//             clearInterval(time);
+//             time = false;
+//         } else {
+//             if (seconds === 0) {
+//                 if (minutes > 0) {
+//                     minutes--;
+//                     seconds = 59;
+//                 } else if (hours > 0) {
+//                     hours--;
+//                     minutes = 59;
+//                     seconds = 59;
+//                 }
+//             } else {
+//                 seconds--;
+//             }
+//         }
+
+//         updateDisplay();
+//     };
+
+// const updateDisplay = () => {
+//     let Hours1;
+//     let Minutes1;
+//     let Seconds1;
+
+//     if (hours < 10) {
+//         Hours1 = '0' + hours;
+//     } else {
+//         Hours1 = hours;
+//     }
+
+//     if (minutes < 10) {
+//         Minutes1 = '0' + minutes;
+//     } else {
+//         Minutes1 = minutes;
+//     }
+
+//     if (seconds < 10) {
+//         Seconds1 = '0' + seconds;
+//     } else {
+//         Seconds1 = seconds;
+//     }
+
+//     display.textContent = `${Hours1}:${Minutes1}:${Seconds1}`;
+// };
